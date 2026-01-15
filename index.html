@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freiwillige Feuerwehr Ahornberg</title>
+    <script disable-devtool-auto src="skript.js"></script>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 3px solid transparent;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.98)),
+                              linear-gradient(90deg, #e74c3c, #f39c12);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #e74c3c;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+            border-radius: 8px;
+        }
+
+        .logo::before {
+            display: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .nav-links a:hover {
+            color: #e74c3c;
+            transform: translateY(-3px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.9), rgba(243, 156, 18, 0.8)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 800"><defs><pattern id="firePattern" patternUnits="userSpaceOnUse" width="100" height="100"><circle cx="50" cy="50" r="30" fill="%23ffffff" opacity="0.1"/><circle cx="25" cy="25" r="15" fill="%23ffffff" opacity="0.05"/><circle cx="75" cy="75" r="20" fill="%23ffffff" opacity="0.08"/></pattern></defs><rect width="1400" height="800" fill="url(%23firePattern)"/></svg>');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+            animation: breathe 8s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: heroFadeIn 2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(80px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
+            font-weight: 900;
+            letter-spacing: -2px;
+            background: linear-gradient(45deg, #ffffff, #f8f9fa);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            color: white;
+            padding: 20px 50px;
+            text-decoration: none;
+            border-radius: 60px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 35px rgba(231, 76, 60, 0.4);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(231, 76, 60, 0.6);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        main {
+            margin-top: 120px;
+            background: white;
+            border-radius: 40px 40px 0 0;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section:nth-child(even) {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e3f2fd 100%);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 4rem;
+            color: #2c3e50;
+            position: relative;
+            font-weight: 800;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 6px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+            border-radius: 3px;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(231, 76, 60, 0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, #e74c3c, #f39c12);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #5a6c7d;
+        }
+
+        .icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            display: block;
+            filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.1));
+        }
+
+        .emergency-section {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            text-align: center;
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .emergency-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .emergency-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .emergency-number {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 900;
+            margin: 2rem 0;
+            text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(45deg, #ffffff, #f8f9fa);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: emergencyPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes emergencyPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .emergency-description {
+            font-size: 1.3rem;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        .gallery-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 6rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.2) 100%);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 2rem;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .contact-info {
+            display: none;
+        }
+
+        .datenschutz-box {
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            padding: 3rem;
+            border-radius: 25px;
+            margin-top: 3rem;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+            border: 2px solid #3498db;
+            color: #2c3e50;
+        }
+
+        .datenschutz-box h3 {
+            color: #3498db;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+        }
+
+        .datenschutz-box h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            border-radius: 2px;
+        }
+
+        .datenschutz-box p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .datenschutz-box p strong {
+            color: #e74c3c;
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+
+        .inner-info-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e74c3c;
+            margin-bottom: 2rem;
+        }
+
+        .inner-info-box h4 {
+            color: #e74c3c;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .inner-info-box .contact-item {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-left: 3px solid #f39c12;
+        }
+
+        .inner-info-box .contact-item span {
+            font-size: 1.8rem;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a:hover {
+            color: #f39c12;
+            transform: translateY(-3px);
+        }
+
+        .social-media {
+            margin: 3rem auto;
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e3f2fd 100%);
+            border-radius: 25px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+            color: #2c3e50;
+        }
+
+        .social-media h3 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 2rem;
+            color: #e74c3c;
+        }
+
+        .social-link {
+            display: inline-block;
+            margin: 0 1rem;
+            padding: 15px;
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+        }
+
+        .social-link:hover {
+            transform: scale(1.3) rotate(360deg);
+            box-shadow: 0 15px 40px rgba(231, 76, 60, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-item span {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            nav {
+                justify-content: space-between;
+            }
+        }
+
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(1deg); }
+            66% { transform: translateY(15px) rotate(-1deg); }
+        }
+
+        .news-ticker {
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+            color: white;
+            padding: 15px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .news-ticker-content {
+            display: inline-block;
+            animation: scroll 40s linear infinite;
+            font-size: 1.1rem;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .weather-widget {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(52, 152, 219, 0.3);
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .weather-widget::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+        }
+
+        .weather-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .weather-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .weather-data {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .weather-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .weather-temp {
+            font-size: 3rem;
+            font-weight: 900;
+            margin: 0.5rem 0;
+        }
+
+        .weather-desc {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            text-transform: capitalize;
+        }
+
+        .weather-loading {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .deployment-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 3rem;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid rgba(231, 76, 60, 0.1);
+        }
+
+        .deployment-list li {
+            padding: 1.2rem 2rem;
+            font-size: 1.1rem;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .deployment-list li:last-child {
+            border-bottom: none;
+        }
+
+        .deployment-list li:hover {
+            background-color: #f8f9fa;
+            transform: translateX(5px);
+        }
+
+        .deployment-list li strong {
+            color: #e74c3c;
+            margin-right: 0.5rem;
+        }
+
+        .deployment-list .placeholder-item {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #f39c12;
+            text-align: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e3f2fd, #f0f4f8);
+            border-bottom: 2px dashed #ccc;
+        }
+
+        .service-plan {
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+            padding: 3rem;
+            border-radius: 25px;
+            margin-top: 3rem;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+            border: 2px solid #3498db;
+            color: #2c3e50;
+        }
+
+        .service-plan h3 {
+            color: #3498db;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+        }
+
+        .service-plan h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            border-radius: 2px;
+        }
+
+        .service-plan table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .service-plan th, .service-plan td {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        .service-plan th {
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .service-plan tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .service-plan tr:hover {
+            background-color: #e6e6e6;
+        }
+
+        .crossed-out {
+            text-decoration: line-through;
+            opacity: 0.6;
+            background-color: #e0e0e0 !important;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            animation-name: animatetop;
+            animation-duration: 0.4s;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes animatetop {
+            from {top: -300px; opacity: 0}
+            to {top: 0; opacity: 1}
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 10001;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 10px;
+        }
+
+        .modal-gallery-grid img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.2s ease-in-out;
+            cursor: zoom-in;
+        }
+
+        .modal-gallery-grid img:hover {
+            transform: scale(1.03);
+        }
+
+        .youth-schedule {
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe4cc 100%);
+            padding: 3rem;
+            border-radius: 25px;
+            margin-top: 3rem;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+            border: 2px solid #f39c12;
+            color: #2c3e50;
+        }
+
+        .youth-schedule h3 {
+            color: #e74c3c;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+        }
+
+        .youth-schedule h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+            border-radius: 2px;
+        }
+
+        .youth-schedule table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .youth-schedule th, .youth-schedule td {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        .youth-schedule th {
+            background: linear-gradient(90deg, #e74c3c, #f39c12);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .youth-schedule tr:nth-child(even) {
+            background-color: #fff9f0;
+        }
+
+        .youth-schedule tr:hover {
+            background-color: #ffe4cc;
+        }
+
+        .youth-schedule .highlight-row {
+            background-color: #fff3cd;
+            font-weight: bold;
+        }
+
+        .youth-schedule .highlight-row:hover {
+            background-color: #ffe69c;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <img src="ffw.gif" alt="Feuerwehr Ahornberg Logo">
+                Feuerwehr Ahornberg
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Start</a></li>
+                <li><a href="#about">Über uns</a></li>
+                <li><a href="#services">Einsatzbereiche</a></li>
+                <li><a href="#deployments">Einsätze</a></li>
+                <li><a href="#service-plan">Dienstplan</a></li>
+                <li><a href="#youth-schedule">Jugendfeuerwehr</a></li>
+                <li><a href="#gallery">Galerie</a></li>
+                <li><a href="#impressum">Impressum</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Freiwillige Feuerwehr<br>Ahornberg</h1>
+                <p>Retten • Löschen • Bergen • Schützen</p>
+                <a href="#about" class="cta-button">Mehr erfahren</a>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">Über uns</h2>
+                <div class="cards-grid">
+                    <div class="card float-animation">
+                        <span class="icon">🚒</span>
+                        <h3>Unsere Mission</h3>
+                        <p>Als Freiwillige Feuerwehr Ahornberg e.V. sind wir rund um die Uhr für die Sicherheit unserer Gemeinde da. Wir schützen Leben, Eigentum und Umwelt in Konradsreuth und der gesamten Region zwischen Fichtelgebirge und Frankenwald.</p>
+                    </div>
+                    <div class="card float-animation" style="animation-delay: 0.3s;">
+                        <span class="icon">👨‍🚒</span>
+                        <h3>Unser Team</h3>
+                        <p>Unter der kompetenten Leitung von Kommandant Sebastian Großmann stehen unsere hochmotivierten ehrenamtlichen Feuerwehrmänner und -frauen bereit, um im Ernstfall schnell und professionell zu helfen.</p>
+                    </div>
+                    <div class="card float-animation" style="animation-delay: 0.6s;">
+                        <span class="icon">🏔️</span>
+                        <h3>Unser Standort</h3>
+                        <p>Ahornberg ist ein malerisches Dorf mit etwa 400 Einwohnern auf 673m über dem Meeresspiegel. Eingebettet zwischen dem Fichtelgebirge und dem Frankenwald sind wir Teil der Gemeinde Konradsreuth in Oberfranken.</p>
+                    </div>
+                </div>
+
+                <div class="weather-widget">
+                    <div class="weather-content">
+                        <div class="weather-title">
+                            🌤️ Aktuelles Wetter Ahornberg
+                        </div>
+                        <div id="weather-info" class="weather-loading">
+                            Wetterdaten werden geladen...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="emergency-section">
+            <div class="container">
+                <div class="emergency-content">
+                    <h2>Im Notfall</h2>
+                    <div class="emergency-number">112</div>
+                    <p class="emergency-description">Europäischer Notruf - Feuerwehr, Rettungsdienst, Notarzt</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="section">
+            <div class="container">
+                <h2 class="section-title">Unsere Einsatzbereiche</h2>
+                <div class="cards-grid">
+                    <div class="card">
+                        <span class="icon">🔥</span>
+                        <h3>Brandbekämpfung</h3>
+                        <p>Professionelle Löscharbeiten bei Bränden aller Art - von Kleinbränden bis hin zu Großeinsätzen. Ausgerüstet mit modernster Lösch- und Atemschutztechnik sind wir bestens vorbereitet.</p>
+                    </div>
+                    <div class="card">
+                        <span class="icon">🚗</span>
+                        <h3>Technische Hilfeleistung</h3>
+                        <p>Rettung von Personen aus Unfallfahrzeugen, Beseitigung von Sturmschäden, Unterstützung bei technischen Notlagen und andere komplexe technische Einsätze.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="deployments" class="section">
+            <div class="container">
+                <h2 class="section-title">Einsatzarchiv</h2>
+                <ul class="deployment-list">
+                    <li>
+                        <strong>Wir Probieren alles Schnellstmöglich bei einem Einsatz zu Updaten!</strong>
+                        <span style="font-size: 0.9em; color: #7f8c8d;"></span>
+                    </li>
+                    <li>
+                        <strong>00.00.0000:</strong> Aktuell noch nichts ()
+                        <span style="font-size: 0.9em; color: #7f8c8d;">🚨🚗</span>
+                    </li>
+                    <li>
+                        <strong>14.04.2025:</strong> Kuhstallbrand (Almbranz)
+                        <span style="font-size: 0.9em; color: #7f8c8d;">🐄🏠</span>
+                    </li>
+                    <li>
+                        <strong>05.04.2025:</strong> Verkehrsunfall (Helmbrechtser Straße, Ahornberg)
+                        <span style="font-size: 0.9em; color: #7f8c8d;">🚨🚗</span>
+                    </li>
+                    <li>
+                        <strong>20.03.2025:</strong> Brand Scheune/Stall/Fahrzeug (Kirchgasse, Ahornberg)
+                        <span style="font-size: 0.9em; color: #7f8c8d;">🐄🏠</span>
+                    </li>
+                    <li>
+                        <strong>08.03.2025:</strong> BMA - Brandmeldeanlage (Am Wiesengrund, Konradsreuth)
+                        <span style="font-size: 0.9em; color: #7f8c8d;">🔥🚨</span>
+                    </li>
+                    <li>
+                        <strong>06.02.2025:</strong> Verkehrsunfall (Helmbrechts,Ahornberg,Meierhof)
+                        <span style="font-size: 0.9em; color: #7f8c8d;">🚨🚗</span>
+                    </li>
+                    <li>
+                        <strong>25.01.2025:</strong> Brandgeruch in Mehrfamilienhaus (Am Lustgarten, Konradsreuth)
+                        <span style="font-size: 0.9em; color: #7f8c8d;">🔥🚨</span>
+                    </li>
+                    <li>
+                        <strong>14.01.2025:</strong> Verkehrsunfall (Hofer Straße)
+                        <span style="font-size: 0.9em; color: #7f8c8d;">🚨🚗</span>
+                    </li>
+                    <li>
+                        <strong>12.01.2025:</strong> Baumbrand (Am Kirchberg)
+                        <span style="font-size: 0.9em; color: #7f8c8d;">🚨🔥</span>
+                    </li>
+                    <li>
+                        <strong>14.01.2025:</strong> Verkehrsunfall (Rothenmühle)
+                        <span style="font-size: 0.9em; color: #7f8c8d;">🚨🚗</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="service-plan" class="section">
+            <div class="container">
+                <h2 class="section-title">Unser Dienstplan</h2>
+                <div class="service-plan">
+                    <h3>Kommende Übungen und Termine</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Datum</th>
+                                <th>Uhrzeit</th>
+                                <th>Übung / Termin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10.02.2026</td>
+                                <td>19:30</td>
+                                <td>Jahreshauptversammlung in der Floriansklause</td>
+                            </tr>
+                            <tr>
+                                <td>24.02.2026</td>
+                                <td>19:30</td>
+                                <td>Einsatzübung Konradsreuth</td>
+                            </tr>
+                            <tr>
+                                <td>10.03.2026</td>
+                                <td>19:30</td>
+                                <td>Übung am Kübelspritzenanhänger</td>
+                            </tr>
+                            <tr>
+                                <td>24.03.2026</td>
+                                <td>19:30</td>
+                                <td>Theoretische Schulung</td>
+                            </tr>
+                            <tr>
+                                <td>07.04.2026</td>
+                                <td>19:30</td>
+                                <td>Atemschutzübung Weißenreuth</td>
+                            </tr>
+                            <tr>
+                                <td>28.04.2026</td>
+                                <td>19:30</td>
+                                <td>Schlauchpflege</td>
+                            </tr>
+                            <tr>
+                                <td>12.05.2026</td>
+                                <td>19:30</td>
+                                <td>Einsatzübung Ahornberg</td>
+                            </tr>
+                            <tr>
+                                <td>26.05.2026</td>
+                                <td>19:30</td>
+                                <td>Hydraulisches Rettungsgerät</td>
+                            </tr>
+                            <tr>
+                                <td>09.06.2026</td>
+                                <td>19:30</td>
+                                <td>Technische Hilfeleistung</td>
+                            </tr>
+                            <tr>
+                                <td>23.06.2026</td>
+                                <td>19:30</td>
+                                <td>Atemschutzübung Almbranz</td>
+                            </tr>
+                            <tr>
+                                <td>07.07.2026</td>
+                                <td>19:30</td>
+                                <td>Waldbrandübung</td>
+                            </tr>
+                            <tr>
+                                <td>21.07.2026</td>
+                                <td>19:30</td>
+                                <td>Sommerübung mit Grillen</td>
+                            </tr>
+                            <tr>
+                                <td>28.07.2026</td>
+                                <td>19:30</td>
+                                <td><a href="#" class="open-drehleiter-modal">Drehleiterübung (Helmbrechts)</a></td>
+                            </tr>
+                            <tr>
+                                <td>15.09.2025</td>
+                                <td>19:30</td>
+                                <td>Personenrettung Weißenreuth (Übung)</td>
+                            </tr>
+                            <tr>
+                                <td>29.09.2025</td>
+                                <td>19:00</td>
+                                <td>Atemschutzübungsanlage (Übung)</td>
+                            </tr>
+                            <tr>
+                                <td>17.10.2025</td>
+                                <td>19:30</td>
+                                <td>Atemschutzübung Almbranz (Übung)</td>
+                            </tr>
+                            <tr>
+                                <td>03.11.2025</td>
+                                <td>19:30</td>
+                                <td><a href="#" class="open-funkuebung-modal">Funkübung Ahornberg (Übung)</a></td>
+                            </tr>
+                            <tr>
+                                <td>24.11.2025</td>
+                                <td>19:30</td>
+                                <td>Knoten und Stiche (Übung)</td>
+                            </tr>
+                            <tr>
+                                <td>15.12.2025</td>
+                                <td>19:30</td>
+                                <td>Feuerwehr im Winter (Übung)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="youth-schedule" class="section">
+            <div class="container">
+                <h2 class="section-title">Jugendfeuerwehr Ahornberg</h2>
+                <div class="youth-schedule">
+                    <h3>Termine Januar - April 2026</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Datum</th>
+                                <th>Uhrzeit</th>
+                                <th>Übung / Termin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sa, 10.01.</td>
+                                <td>19:30 Uhr</td>
+                                <td>Jahreshauptversammlung in der Floriansklause</td>
+                            </tr>
+                            <tr>
+                                <td>So, 18.01.</td>
+                                <td>10:00 Uhr</td>
+                                <td>Jugend-Übung in Ahornberg</td>
+                            </tr>
+                            <tr>
+                                <td>Do, 19.02.</td>
+                                <td>18:30 Uhr</td>
+                                <td>Jugend-Übung in Ahornberg</td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td>Do, 05.03.</td>
+                                <td>18:30 Uhr</td>
+                                <td>Jugend-Übung Erste Hilfe / Rettungsdienst</td>
+                            </tr>
+                            <tr>
+                                <td>Do, 19.03.</td>
+                                <td>18:30 Uhr</td>
+                                <td>Jugend-Übung in Ahornberg</td>
+                            </tr>
+                            <tr>
+                                <td>Do, 02.04.</td>
+                                <td>18:30 Uhr</td>
+                                <td>Jugend-Übung in Ahornberg</td>
+                            </tr>
+                            <tr>
+                                <td>Do, 16.04.</td>
+                                <td>18:30 Uhr</td>
+                                <td>Jugend-Übung in Ahornberg</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="gallery-section">
+            <div class="container">
+                <h2 class="section-title" style="color: white;">Unsere Feuerwehr in Bildern</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/feuerwehrauto.jpg" alt="Feuerwehrauto" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="gallery-overlay">
+                            <h3>Löschfahrzeug</h3>
+                            <p>Unser modernes Löschgruppenfahrzeug bei einem Übungseinsatz</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/übungsbrand.jpg" alt="Übungsbrand" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="gallery-overlay">
+                            <h3>Übungsbrand</h3>
+                            <p>Realitätsnahe Übungen für den Ernstfall</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/feuerwehrhaus.webp" alt="Feuerwehrhaus" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="gallery-overlay">
+                            <h3>Feuerwehrhaus</h3>
+                            <p>Unser Feuerwehrhaus in der Kirchgasse</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/gemeinschaft.jpg" alt="Gemeinschaft" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="gallery-overlay">
+                            <h3>Gemeinschaft</h3>
+                            <p>Zusammenhalt und Kameradschaft in der Feuerwehr</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/funkübung/1.png" alt="Funkübung 1" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="gallery-overlay">
+                            <h3>Funkübung</h3>
+                            <p>Training der Kommunikation im Einsatz</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/funkübung/2.png" alt="Funkübung 2" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="gallery-overlay">
+                            <h3>Funkübung</h3>
+                            <p>Professionelle Funkausbildung unserer Kameraden</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="impressum" class="section">
+            <div class="container">
+                <h2 class="section-title">Impressum & Datenschutz</h2>
+
+                <div class="datenschutz-box">
+                    <h3>Datenschutzerklärung</h3>
+
+                    <div class="inner-info-box">
+                        <h4>Verantwortlich für diese Website</h4>
+                        <div class="contact-item">
+                            <span>👨‍💻</span>
+                            <div>
+                                <strong>Verantwortlich für diese Website:</strong><br>
+                                Thomas Popp<br>
+                                Kirchgasse 3<br>
+                                95176 Konradsreuth
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <span>📧</span>
+                            <div>
+                                <strong>Kontakt:</strong><br>
+                                E-Mail: <a href="mailto:admin@ffw-ahornberg.de">admin@ffw-ahornberg.de</a><br>
+                                Website: <a href="https://www.ffw-ahornberg.de" target="_blank">www.ffw-ahornberg.de</a><br>
+                                <strong>Telefon Seitenbetreiber:</strong><br>
+                                +4915227889249
+                            </div>
+                        </div>
+                    </div>
+                    <p><strong>1. Inhalt des Onlineangebotes</strong></p>
+                    <p>
+                        Der Autor übernimmt keinerlei Gewähr für die Aktualität, Korrektheit, Vollständigkeit oder Qualität der bereitgestellten Informationen.
+                        Haftungsansprüche gegen den Autor, die durch die Nutzung oder Nichtnutzung der bereitgestellten Informationen verursacht wurden, sind grundsätzlich ausgeschlossen,
+                        sofern seitens des Autors kein nachweislich vorsätzliches oder grob fahrlässiges Verschulden vorliegt.
+                        Alle Angebote sind freibleibend und unverbindlich. Der Autor behält sich ausdrücklich vor, Teile der Seiten oder das gesamte Angebot ohne Ankündigung zu verändern, zu ergänzen, zu löschen oder die Veröffentlichung zeitweise oder endgültig einzustellen.
+                    </p>
+
+                    <p><strong>2. Verweise und Links</strong></p>
+                    <p>
+                        Bei direkten oder indirekten Verweisen auf fremde Webseiten ("Hyperlinks"), die außerhalb des Verantwortungsbereiches des Autors liegen,
+                        würde eine Haftungsverpflichtung ausschließlich in dem Fall in Kraft treten, in dem der Autor von den Inhalten Kenntnis hat und es ihm technisch möglich und zumutbar wäre,
+                        die Nutzung im Falle rechtswidriger Inhalte zu verhindern.
+                        Der Autor erklärt hiermit ausdrücklich, dass zum Zeitpunkt der Linksetzung keine illegalen Inhalte auf den zu verlinkenden Seiten erkennbar waren.
+                        Auf die aktuelle und zukünftige Gestaltung, die Inhalte oder die Urheberschaft der verlinkten/verknüpften Seiten hat der Autor keinerlei Einfluss.
+                    </p>
+
+                    <p><strong>3. Urheber- und Kennzeichenrecht</strong></p>
+                    <p>
+                        Der Autor ist bestrebt, in allen Publikationen die Urheberrechte der verwendeten Bilder, Grafiken, Tondokumente, Videosequenzen und Texte zu beachten,
+                        von ihm selbst erstellte Bilder, Grafiken, Tondokumente, Videosequenzen und Texte zu nutzen oder auf lizenzfreie Grafiken, Tondokumente, Videosequenzen und Texte zurückzugreifen.
+                        Alle innerhalb des Internetangebotes genannten und ggf. durch Dritte geschützte Marke-n und Warenzeichen unterliegen uneingeschränkt den Bestimmungen des jeweils gültigen Kennzeichenrechts und den Besitzrechten der jeweiligen eingetragenen Eigentümer.
+                    </p>
+
+                    <p><strong>4. Datenschutz</strong></p>
+                    <p>
+                        Sofern innerhalb des Internetangebotes die Möglichkeit zur Eingabe persönlicher oder geschäftlicher Daten (E-Mail-Adressen, Namen, Anschriften) besteht, erfolgt die Preisgabe dieser Daten freiwillig.
+                        Die Inanspruchnahme und Bezahlung aller angebotenen Dienste ist auch ohne Angabe persönlicher Daten oder unter Angabe anonymisierter Daten oder eines Pseudonyms gestattet.
+                    </p>
+
+                    <p><strong>5. Rechtswirksamkeit dieses Haftungsausschlusses</strong></p>
+                    <p>
+                        Dieser Haftungsausschluss ist als Teil des Internetangebotes zu betrachten, von dem aus auf diese Seite verwiesen wurde. Sofern Teile oder einzelne Formulierungen dieses Textes der geltenden Rechtslage nicht, nicht mehr oder nicht vollständig entsprechen sollten, bleiben die übrigen Teile des Dokuments in ihrem Inhalt und ihrer Gültigkeit davon unberührt.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="social-media section">
+            <div class="container">
+                <h3>Folgen Sie uns:</h3>
+                <a href="https://www.facebook.com/ffahornberg" target="_blank" class="social-link">📘</a>
+                <a href="https://www.instagram.com/ffw_ahornberg?utm_source=ffw-ahornberg.de" target="_blank" class="social-link">📸</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#impressum">Impressum</a>
+                <a href="https://mc-host24.de/donate/consolecrafter">Spenden</a>
+            </div>
+            <p>&copy; 2026 Freiwillige Feuerwehr Ahornberg e.V. • Alle Rechte vorbehalten</p>
+            <div style="opacity: 0; position: absolute; bottom: 10px; right: 10px; font-size: 0.1px; color: transparent;">
+                Ahahaaa
+            </div>
+        </div>
+    </footer>
+
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Drehleiterübung (Helmbrechts) - Bilder</h2>
+            <div class="modal-gallery-grid" id="drehleiterGallery">
+            </div>
+        </div>
+    </div>
+
+    <div id="funkuebungModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button-funk">&times;</span>
+            <h2>Funkübung Ahornberg - Bilder</h2>
+            <div class="modal-gallery-grid" id="funkuebungGallery">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                } else {
+                    console.log('Target not found:', targetId);
+                }
+            });
+        });
+
+        // Header background change on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.backdropFilter = 'blur(15px)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            }
+        });
+
+        // Add animation to cards when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and deployment list items (excluding the placeholder)
+        document.querySelectorAll('.card, .deployment-list li:not(.placeholder-item)').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(element);
+        });
+
+        // Emergency number animation
+        const emergencyNumber = document.querySelector('.emergency-number');
+        if (emergencyNumber) {
+            emergencyNumber.addEventListener('click', () => {
+                emergencyNumber.style.animation = 'none';
+                setTimeout(() => {
+                    emergencyNumber.style.animation = 'emergencyBlink 1s ease-in-out 3';
+                }, 10);
+            });
+        }
+
+        // Add interactive effects to CTA button
+        const ctaButton = document.querySelector('.cta-button');
+        if (ctaButton) {
+            ctaButton.addEventListener('mouseover', function() {
+                this.innerHTML = '🚒 ' + this.innerHTML;
+            });
+
+            ctaButton.addEventListener('mouseout', function() {
+                this.innerHTML = this.innerHTML.replace('🚒 ', '');
+            });
+        }
+
+        // Weather Widget mit echter Open-Meteo API
+        async function loadWeather() {
+            const weatherInfo = document.getElementById('weather-info');
+
+            try {
+                // Open-Meteo API für Ahornberg (Koordinaten: 50.2167, 11.9167)
+                const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=50.2167&longitude=11.9167&current_weather=true&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m,pressure_msl&timezone=Europe/Berlin&forecast_days=1');
+                const data = await response.json();
+
+                const current = data.current_weather;
+                const hourly = data.hourly;
+                const currentHour = new Date().getHours();
+
+                // Aktuelle Werte aus den stündlichen Daten
+                const humidity = hourly.relative_humidity_2m[currentHour] || 'N/A';
+                const pressure = hourly.pressure_msl[currentHour] || 'N/A';
+
+                // Wetter-Code zu Beschreibung
+                const weatherDescriptions = {
+                    0: 'Klar',
+                    1: 'Überwiegend klar',
+                    2: 'Teilweise bewölkt',
+                    3: 'Bewölkt',
+                    45: 'Neblig',
+                    48: 'Neblig mit Reif',
+                    51: 'Leichter Nieselregen',
+                    53: 'Mäßiger Nieselregen',
+                    55: 'Starker Nieselregen',
+                    61: 'Leichter Regen',
+                    63: 'Mäßiger Regen',
+                    65: 'Starker Regen',
+                    71: 'Leichter Schneefall',
+                    73: 'Mäßiger Schneefall',
+                    75: 'Starker Schneefall',
+                    77: 'Schneekörner',
+                    80: 'Leichte Regenschauer',
+                    81: 'Mäßige Regenschauer',
+                    82: 'Starke Regenschauer',
+                    85: 'Leichte Schneeschauer',
+                    86: 'Starke Schneeschauer',
+                    95: 'Gewitter',
+                    96: 'Gewitter mit Hagel',
+                    99: 'Starkes Gewitter mit Hagel'
+                };
+
+                const description = weatherDescriptions[current.weathercode] || 'Unbekannt';
+
+                weatherInfo.innerHTML = `
+                    <div class="weather-temp">${Math.round(current.temperature)}°C</div>
+                    <div class="weather-desc">${description}</div>
+                    <div class="weather-data">
+                        <div class="weather-item">
+                            <div>💧 Luftfeuchtigkeit</div>
+                            <div style="font-size: 1.3rem; font-weight: bold; margin-top: 0.5rem;">${humidity}%</div>
+                        </div>
+                        <div class="weather-item">
+                            <div>💨 Wind</div>
+                            <div style="font-size: 1.3rem; font-weight: bold; margin-top: 0.5rem;">${Math.round(current.windspeed)} km/h</div>
+                        </div>
+                        <div class="weather-item">
+                            <div>📊 Luftdruck</div>
+                            <div style="font-size: 1.3rem; font-weight: bold; margin-top: 0.5rem;">${pressure ? Math.round(pressure) : 'N/A'} hPa</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+                        Live-Daten für Ahornberg • ${new Date().toLocaleString('de-DE')}
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Wetter-API Fehler:', error);
+                weatherInfo.innerHTML = `
+                    <div style="color: rgba(255,255,255,0.8); text-align: center;">
+                        🌡️ Wetterdaten momentan nicht verfügbar<br>
+                        <small>Verbindung zur Wetter-API fehlgeschlagen</small>
+                    </div>
+                `;
+            }
+        }
+
+        // Lade Wetter beim Seitenstart
+        loadWeather();
+
+        // Aktualisiere Wetter alle 10 Minuten
+        setInterval(loadWeather, 600000);
+
+        // Modal Logik
+        document.addEventListener('DOMContentLoaded', () => {
+            const imageModal = document.getElementById('imageModal');
+            const funkuebungModal = document.getElementById('funkuebungModal');
+            const closeButton = document.querySelector('.close-button');
+            const closeButtonFunk = document.querySelector('.close-button-funk');
+            const drehleiterLinks = document.querySelectorAll('.open-drehleiter-modal');
+            const funkuebungLinks = document.querySelectorAll('.open-funkuebung-modal');
+            const drehleiterGallery = document.getElementById('drehleiterGallery');
+            const funkuebungGallery = document.getElementById('funkuebungGallery');
+
+            drehleiterLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    drehleiterGallery.innerHTML = '';
+
+                    for (let i = 1; i <= 8; i++) {
+                        const img = document.createElement('img');
+                        img.src = `pics/drehleiteruebung/drehleiteruebung${i}.jpg`;
+                        img.alt = `Drehleiterübung Bild ${i}`;
+                        drehleiterGallery.appendChild(img);
+                    }
+                    imageModal.style.display = 'flex';
+                });
+            });
+
+            funkuebungLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    funkuebungGallery.innerHTML = '';
+
+                    for (let i = 1; i <= 2; i++) {
+                        const img = document.createElement('img');
+                        img.src = `pics/funkübung/${i}.png`;
+                        img.alt = `Funkübung Bild ${i}`;
+                        funkuebungGallery.appendChild(img);
+                    }
+                    funkuebungModal.style.display = 'flex';
+                });
+            });
+
+            closeButton.addEventListener('click', () => {
+                imageModal.style.display = 'none';
+            });
+
+            closeButtonFunk.addEventListener('click', () => {
+                funkuebungModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target == imageModal) {
+                    imageModal.style.display = 'none';
+                }
+                if (event.target == funkuebungModal) {
+                    funkuebungModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
