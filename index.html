@@ -1866,7 +1866,8 @@
         const hamburgerBtn = document.getElementById('hamburgerBtn');
         const mobileNav = document.getElementById('mobileNav');
 
-        hamburgerBtn.addEventListener('click', () => {
+        hamburgerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             hamburgerBtn.classList.toggle('active');
             mobileNav.classList.toggle('open');
             document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
@@ -1885,7 +1886,10 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
+                if (!targetId || targetId === '#') {
+                    e.preventDefault();
+                    return;
+                }
                 e.preventDefault();
                 const target = document.querySelector(targetId);
                 if (target) {
@@ -1893,8 +1897,6 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
-                } else {
-                    console.log('Target not found:', targetId);
                 }
             });
         });
