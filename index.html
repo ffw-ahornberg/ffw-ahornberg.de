@@ -921,7 +921,8 @@
         }
 
         .close-button,
-        .close-button-funk {
+        .close-button-funk,
+        .close-button-fahrzeugkunde {
             color: #aaa;
             float: right;
             font-size: 28px;
@@ -936,7 +937,9 @@
         .close-button:hover,
         .close-button:focus,
         .close-button-funk:hover,
-        .close-button-funk:focus {
+        .close-button-funk:focus,
+        .close-button-fahrzeugkunde:hover,
+        .close-button-fahrzeugkunde:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
@@ -1598,7 +1601,7 @@
                             <tr>
                                 <td>Do, 02.04.</td>
                                 <td>18:30 Uhr</td>
-                                <td>Jugend-Übung in Ahornberg / Fahrzeugkunde</td>
+                                <td><a href="#" class="open-fahrzeugkunde-modal">Jugend-Übung in Ahornberg / Fahrzeugkunde</a></td>
                             </tr>
                             <tr>
                                 <td>Do, 17.04.</td>
@@ -1750,6 +1753,15 @@
             </div>
         </div>
     </footer>
+
+    <div id="fahrzeugkundeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button-fahrzeugkunde">&times;</span>
+            <h2>Jugend-Übung Fahrzeugkunde - Bilder</h2>
+            <div class="modal-gallery-grid" id="fahrzeugkundeGallery">
+            </div>
+        </div>
+    </div>
 
     <div id="imageModal" class="modal">
         <div class="modal-content">
@@ -1991,6 +2003,30 @@
                 });
             });
 
+            // Fahrzeugkunde Modal
+            const fahrzeugkundeModal = document.getElementById('fahrzeugkundeModal');
+            const closeButtonFahrzeugkunde = document.querySelector('.close-button-fahrzeugkunde');
+            const fahrzeugkundeLinks = document.querySelectorAll('.open-fahrzeugkunde-modal');
+            const fahrzeugkundeGallery = document.getElementById('fahrzeugkundeGallery');
+
+            fahrzeugkundeLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    fahrzeugkundeGallery.innerHTML = '';
+                    for (let i = 1; i <= 3; i++) {
+                        const img = document.createElement('img');
+                        img.src = `pics/Fahrzeugkunde/${i}.png`;
+                        img.alt = `Fahrzeugkunde Bild ${i}`;
+                        fahrzeugkundeGallery.appendChild(img);
+                    }
+                    fahrzeugkundeModal.style.display = 'flex';
+                });
+            });
+
+            closeButtonFahrzeugkunde.addEventListener('click', () => {
+                fahrzeugkundeModal.style.display = 'none';
+            });
+
             closeButton.addEventListener('click', () => {
                 imageModal.style.display = 'none';
             });
@@ -2005,6 +2041,9 @@
                 }
                 if (event.target == funkuebungModal) {
                     funkuebungModal.style.display = 'none';
+                }
+                if (event.target == fahrzeugkundeModal) {
+                    fahrzeugkundeModal.style.display = 'none';
                 }
             });
         });
