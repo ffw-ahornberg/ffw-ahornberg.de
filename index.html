@@ -156,14 +156,13 @@
             right: 0;
             bottom: 0;
             background: rgba(255, 255, 255, 0.98);
-            z-index: 998;
+            z-index: 999;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 2rem;
             opacity: 0;
             transition: opacity 0.3s ease;
-            overflow-y: auto;
         }
 
         .mobile-nav.open {
@@ -1289,7 +1288,7 @@
                 <li><a href="#gallery">Galerie</a></li>
                 <li><a href="#impressum">Impressum</a></li>
             </ul>
-            <button type="button" class="hamburger" id="hamburgerBtn" aria-label="Menü öffnen">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menü öffnen">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -1298,7 +1297,7 @@
     </header>
 
     <!-- Mobile Navigation Overlay -->
-    <div class="mobile-nav" id="mobileNav">
+    <nav class="mobile-nav" id="mobileNav">
         <a href="#home" class="mobile-nav-link">🏠 Start</a>
         <a href="#about" class="mobile-nav-link">ℹ️ Über uns</a>
         <a href="#services" class="mobile-nav-link">🔥 Einsatzbereiche</a>
@@ -1307,7 +1306,7 @@
         <a href="#youth-schedule" class="mobile-nav-link">👧 Jugendfeuerwehr</a>
         <a href="#gallery" class="mobile-nav-link">🖼️ Galerie</a>
         <a href="#impressum" class="mobile-nav-link">📄 Impressum</a>
-    </div>
+    </nav>
 
     <section id="home" class="hero">
         <div class="container">
@@ -1754,6 +1753,7 @@
             </div>
         </div>
     </footer>
+
     <div id="fahrzeugkundeModal" class="modal">
         <div class="modal-content">
             <span class="close-button-fahrzeugkunde">&times;</span>
@@ -1783,25 +1783,21 @@
 
     <script>
         // Hamburger Menu Toggle
-        // Hamburger Menu
-        window.addEventListener('load', function() {
-            const hamburgerBtn = document.getElementById('hamburgerBtn');
-            const mobileNav = document.getElementById('mobileNav');
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileNav = document.getElementById('mobileNav');
 
-            hamburgerBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                hamburgerBtn.classList.toggle('active');
-                mobileNav.classList.toggle('open');
-                document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
-            });
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('active');
+            mobileNav.classList.toggle('open');
+            document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+        });
 
-            document.querySelectorAll('.mobile-nav-link').forEach(function(link) {
-                link.addEventListener('click', function() {
-                    hamburgerBtn.classList.remove('active');
-                    mobileNav.classList.remove('open');
-                    document.body.style.overflow = '';
-                });
+        // Close mobile nav when a link is clicked
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburgerBtn.classList.remove('active');
+                mobileNav.classList.remove('open');
+                document.body.style.overflow = '';
             });
         });
 
@@ -1809,10 +1805,7 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const targetId = this.getAttribute('href');
-                if (!targetId || targetId === '#') {
-                    e.preventDefault();
-                    return;
-                }
+                if (targetId === '#') return;
                 e.preventDefault();
                 const target = document.querySelector(targetId);
                 if (target) {
@@ -1820,6 +1813,8 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
+                } else {
+                    console.log('Target not found:', targetId);
                 }
             });
         });
@@ -2039,6 +2034,8 @@
             closeButtonFunk.addEventListener('click', () => {
                 funkuebungModal.style.display = 'none';
             });
+
+            window.addEventListener('click', (event) => {
                 if (event.target == imageModal) {
                     imageModal.style.display = 'none';
                 }
