@@ -1876,16 +1876,10 @@
 
         // Close mobile nav when a link is clicked
         document.querySelectorAll('.mobile-nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
+            link.addEventListener('click', () => {
                 hamburgerBtn.classList.remove('active');
                 mobileNav.classList.remove('open');
                 document.body.style.overflow = '';
-                setTimeout(() => {
-                    const target = document.querySelector(targetId);
-                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 50);
             });
         });
 
