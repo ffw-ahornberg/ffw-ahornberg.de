@@ -966,78 +966,6 @@
             transform: scale(1.03);
         }
 
-        /* Fullscreen zoom overlay */
-        #zoomOverlay {
-            display: none;
-            position: fixed;
-            z-index: 20000;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
-            justify-content: center;
-            align-items: center;
-            cursor: zoom-out;
-        }
-
-        #zoomOverlay.active {
-            display: flex;
-        }
-
-        #zoomOverlay img {
-            max-width: 95vw;
-            max-height: 95vh;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 0 60px rgba(0,0,0,0.8);
-            animation: zoomIn 0.2s ease;
-            cursor: default;
-        }
-
-        @keyframes zoomIn {
-            from { transform: scale(0.85); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        #zoomClose {
-            position: fixed;
-            top: 18px;
-            right: 24px;
-            color: white;
-            font-size: 2.5rem;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 20001;
-            line-height: 1;
-            transition: color 0.2s ease;
-        }
-
-        #zoomClose:hover {
-            color: #f39c12;
-        }
-
-        #zoomArrowLeft,
-        #zoomArrowRight {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.15);
-            color: white;
-            font-size: 2rem;
-            padding: 1rem 1.2rem;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 20001;
-            transition: background 0.2s ease;
-            user-select: none;
-        }
-
-        #zoomArrowLeft { left: 16px; }
-        #zoomArrowRight { right: 16px; }
-
-        #zoomArrowLeft:hover,
-        #zoomArrowRight:hover {
-            background: rgba(231, 76, 60, 0.6);
-        }
-
         .youth-schedule {
             background: linear-gradient(135deg, #fff5e6 0%, #ffe4cc 100%);
             padding: 2.5rem;
@@ -1826,15 +1754,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Fullscreen Zoom Overlay -->
-    <div id="zoomOverlay">
-        <span id="zoomClose">&times;</span>
-        <span id="zoomArrowLeft">&#8249;</span>
-        <img id="zoomImg" src="" alt="Zoom">
-        <span id="zoomArrowRight">&#8250;</span>
-    </div>
-
     <div id="fahrzeugkundeModal" class="modal">
         <div class="modal-content">
             <span class="close-button-fahrzeugkunde">&times;</span>
@@ -2117,68 +2036,6 @@
             closeButtonFunk.addEventListener('click', () => {
                 funkuebungModal.style.display = 'none';
             });
-
-        // Fullscreen zoom logic
-        const zoomOverlay = document.getElementById('zoomOverlay');
-        const zoomImg = document.getElementById('zoomImg');
-        const zoomClose = document.getElementById('zoomClose');
-        const zoomArrowLeft = document.getElementById('zoomArrowLeft');
-        const zoomArrowRight = document.getElementById('zoomArrowRight');
-        let currentZoomImages = [];
-        let currentZoomIndex = 0;
-
-        function openZoom(images, index) {
-            currentZoomImages = images;
-            currentZoomIndex = index;
-            zoomImg.src = images[index];
-            zoomOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            zoomArrowLeft.style.display = images.length > 1 ? 'block' : 'none';
-            zoomArrowRight.style.display = images.length > 1 ? 'block' : 'none';
-        }
-
-        function closeZoom() {
-            zoomOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function zoomNext() {
-            currentZoomIndex = (currentZoomIndex + 1) % currentZoomImages.length;
-            zoomImg.src = currentZoomImages[currentZoomIndex];
-        }
-
-        function zoomPrev() {
-            currentZoomIndex = (currentZoomIndex - 1 + currentZoomImages.length) % currentZoomImages.length;
-            zoomImg.src = currentZoomImages[currentZoomIndex];
-        }
-
-        zoomClose.addEventListener('click', closeZoom);
-        zoomArrowRight.addEventListener('click', (e) => { e.stopPropagation(); zoomNext(); });
-        zoomArrowLeft.addEventListener('click', (e) => { e.stopPropagation(); zoomPrev(); });
-        zoomOverlay.addEventListener('click', (e) => {
-            if (e.target === zoomOverlay) closeZoom();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (!zoomOverlay.classList.contains('active')) return;
-            if (e.key === 'Escape') closeZoom();
-            if (e.key === 'ArrowRight') zoomNext();
-            if (e.key === 'ArrowLeft') zoomPrev();
-        });
-
-        // Attach zoom to all modal gallery images
-        function attachZoom(gallery) {
-            const imgs = gallery.querySelectorAll('img');
-            const srcs = Array.from(imgs).map(i => i.src);
-            imgs.forEach((img, idx) => {
-                img.addEventListener('click', () => openZoom(srcs, idx));
-            });
-        }
-
-        // Observe gallery changes to attach zoom after images are loaded
-        [drehleiterGallery, funkuebungGallery, fahrzeugkundeGallery].forEach(gallery => {
-            new MutationObserver(() => attachZoom(gallery)).observe(gallery, { childList: true });
-        });
                 if (event.target == imageModal) {
                     imageModal.style.display = 'none';
                 }
