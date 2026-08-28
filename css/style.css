@@ -754,6 +754,38 @@ footer {
     border: 1px solid rgba(230, 57, 70, 0.12);
 }
 
+.deployment-note {
+    text-align: center;
+    color: var(--ink);
+    opacity: 0.75;
+    font-size: 0.95rem;
+    margin-top: 1.5rem;
+}
+
+.deployment-stats {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.stat-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #fff;
+    border: 1px solid rgba(230, 57, 70, 0.15);
+    border-radius: 999px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.95rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-item strong {
+    color: var(--red);
+}
+
 .deployment-list li {
     padding: 1rem 1.25rem;
     font-size: 1rem;
@@ -1360,5 +1392,294 @@ RESPONSIVE / MOBILE STYLES
     .gallery-overlay {
         transform: translateY(0);
         background: linear-gradient(transparent 40%, rgba(0, 0, 0, 0.75));
+    }
+}
+
+/* =========================================================
+   Mitglieder-CTA-Banner
+   ========================================================= */
+.cta-section {
+    background: linear-gradient(135deg, var(--red) 0%, var(--orange) 100%);
+    padding: 5rem 0;
+    text-align: center;
+}
+
+.cta-section h2 {
+    color: #fff;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.cta-section p {
+    color: rgba(255, 255, 255, 0.92);
+    max-width: 720px;
+    margin: 0 auto 2rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-buttons .cta-button {
+    background: #fff;
+    color: var(--red-dark);
+}
+
+.cta-buttons .cta-button-secondary {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    box-shadow: none;
+}
+
+.cta-buttons .cta-button-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: none;
+}
+
+/* =========================================================
+   Kontakt & Anfahrt
+   ========================================================= */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 2rem;
+    align-items: stretch;
+    margin-top: 3rem;
+}
+
+.contact-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(230, 57, 70, 0.12);
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.contact-card .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.contact-card .contact-item span {
+    font-size: 1.6rem;
+    line-height: 1.2;
+}
+
+.contact-card .contact-item a {
+    color: var(--red);
+    text-decoration: underline;
+}
+
+.map-wrapper {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(230, 57, 70, 0.12);
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+}
+
+.map-wrapper iframe {
+    flex: 1;
+    width: 100%;
+    border: 0;
+    min-height: 340px;
+}
+
+.map-hint {
+    margin: 0;
+    padding: 0.6rem 1rem;
+    background: #fff;
+    font-size: 0.85rem;
+    text-align: center;
+    border-top: 1px solid rgba(29, 42, 58, 0.08);
+}
+
+.map-hint a {
+    color: var(--red);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.map-hint a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================================
+   ICS-Kalender-Export (Jugendfeuerwehr)
+   ========================================================= */
+.youth-schedule-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.youth-schedule-head .table-scroll-hint {
+    margin: 0;
+}
+
+.ics-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
+    background: var(--red);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.ics-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    background: var(--orange);
+}
+
+/* =========================================================
+   Scroll-to-top
+   ========================================================= */
+.scroll-top {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: var(--red);
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(15px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, background 0.3s ease;
+    z-index: 900;
+    line-height: 1;
+}
+
+.scroll-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-top:hover {
+    background: var(--orange);
+}
+
+/* =========================================================
+   Datenschutz-Hinweis (leichtgewichtig)
+   ========================================================= */
+.privacy-banner {
+    position: fixed;
+    left: 50%;
+    bottom: 1.25rem;
+    transform: translateX(-50%);
+    width: min(560px, calc(100vw - 2rem));
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(230, 57, 70, 0.18);
+    padding: 1.25rem 1.5rem;
+    z-index: 1100;
+    display: none;
+    text-align: left;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--ink);
+}
+
+.privacy-banner.show {
+    display: block;
+}
+
+.privacy-banner p {
+    margin: 0 0 1rem;
+}
+
+.privacy-banner a {
+    color: var(--red);
+}
+
+.privacy-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.privacy-buttons button {
+    padding: 0.6rem 1.4rem;
+    border: none;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.privacy-buttons .privacy-accept {
+    background: var(--red);
+    color: #fff;
+}
+
+.privacy-buttons .privacy-accept:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.privacy-buttons .privacy-info {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid rgba(29, 42, 58, 0.25);
+}
+
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .map-wrapper {
+        min-height: 320px;
+    }
+
+    .map-wrapper iframe {
+        min-height: 280px;
+    }
+
+    .scroll-top {
+        right: 1rem;
+        bottom: 1rem;
+        width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
+    }
+
+    .privacy-banner {
+        bottom: 0.75rem;
+        padding: 1rem;
     }
 }

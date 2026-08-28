@@ -5,7 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freiwillige Feuerwehr Ahornberg</title>
     <meta name="description" content="Freiwillige Feuerwehr Ahornberg - Retten, Loeschen, Bergen, Schuetzen. Infos zu Einsaetzen, Dienstplan, Jugendfeuerwehr und mehr.">
+    <meta name="keywords" content="Feuerwehr, Ahornberg, Konradsreuth, Freiwillige Feuerwehr, Jugendfeuerwehr, Einsätze, Dienstplan">
+    <meta name="author" content="Freiwillige Feuerwehr Ahornberg e.V.">
+    <meta name="theme-color" content="#e63946">
+    <!-- Open Graph / Social Media Vorschau -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Freiwillige Feuerwehr Ahornberg">
+    <meta property="og:description" content="Retten • Löschen • Bergen • Schützen. Infos zu Einsätzen, Dienstplan, Jugendfeuerwehr und mehr.">
+    <meta property="og:url" content="https://www.ffw-ahornberg.de/">
+    <meta property="og:image" content="https://www.ffw-ahornberg.de/favicon.png">
+    <meta property="og:site_name" content="Freiwillige Feuerwehr Ahornberg">
+    <meta property="og:locale" content="de_DE">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Freiwillige Feuerwehr Ahornberg">
+    <meta name="twitter:description" content="Retten • Löschen • Bergen • Schützen. Infos zu Einsätzen, Dienstplan, Jugendfeuerwehr und mehr.">
+    <meta name="twitter:image" content="https://www.ffw-ahornberg.de/favicon.png">
     <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="favicon.png">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -24,6 +40,7 @@
                 <li><a href="#service-plan">Dienstplan</a></li>
                 <li><a href="#youth-schedule">Jugendfeuerwehr</a></li>
                 <li><a href="#gallery">Galerie</a></li>
+                <li><a href="#contact">Kontakt</a></li>
                 <li><a href="#impressum">Impressum</a></li>
             </ul>
             <button class="hamburger" id="hamburgerBtn" aria-label="Menü öffnen">
@@ -43,6 +60,7 @@
         <a href="#service-plan" class="mobile-nav-link">📅 Dienstplan</a>
         <a href="#youth-schedule" class="mobile-nav-link">👧 Jugendfeuerwehr</a>
         <a href="#gallery" class="mobile-nav-link">🖼️ Galerie</a>
+        <a href="#contact" class="mobile-nav-link">📍 Kontakt</a>
         <a href="#impressum" class="mobile-nav-link">📄 Impressum</a>
     </nav>
 
@@ -115,6 +133,11 @@
                         <h3>Technische Hilfeleistung</h3>
                         <p>Rettung von Personen aus Unfallfahrzeugen, Beseitigung von Sturmschäden, Unterstützung bei technischen Notlagen und andere komplexe technische Einsätze.</p>
                     </div>
+                    <div class="card">
+                        <span class="icon">👩‍🚒</span>
+                        <h3>Brandschutzerziehung & Jugendarbeit</h3>
+                        <p>Von der Brandschutzerziehung im Kindergarten bis zur Jugendfeuerwehr – wir begeistern den Nachwuchs für das Ehrenamt und bilden die Einsatzkräfte von morgen aus.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -122,23 +145,17 @@
         <section id="deployments" class="section">
             <div class="container">
                 <h2 class="section-title">Einsatzarchiv</h2>
+                <div class="deployment-stats" id="deploymentStats"></div>
+                <p class="deployment-note">Wir dokumentieren hier unsere Einsätze – so schnell es uns neben dem Einsatzdienst möglich ist.</p>
                 <ul class="deployment-list">
-                    <li>
-                        <strong>Wir Probieren alles Schnellstmöglich bei einem Einsatz zu Updaten!</strong>
-                        <span style="font-size: 0.9em; color: #7f8c8d;"></span>
-                    </li>
-                    <li>
-                        <strong>00.00.0000:</strong> Aktuell noch nichts ()
-                        <span style="font-size: 0.9em; color: #7f8c8d;">🚨🚗</span>
-                    </li>
                     <li>
                         <strong>25.07.2026:</strong> Autounfall mit Ölspur (zwischen Reuthlas und Münchberg)
                         <span style="font-size: 0.9em; color: #7f8c8d;">🚨🚗</span>
                     </li>
-					<li>
-						<strong>05.05.2026:</strong> <a href="#" class="open-5mai26-modal">Bewohntes Haus/Scheunenbrand mit Gasflaschen (Weißlenreuth)</a>
-						<span style="font-size: 0.9em; color: #7f8c8d;">🚨🔥</span>
-					</li>
+                    <li>
+                        <strong>05.05.2026:</strong> <a href="#" class="open-5mai26-modal">Bewohntes Haus/Scheunenbrand mit Gasflaschen (Weißlenreuth)</a>
+                        <span style="font-size: 0.9em; color: #7f8c8d;">🚨🔥</span>
+                    </li>
                     <li>
                         <strong>13.02.2026:</strong> BMA - Brandmeldeanlage FEHLALARM!!! (Hofer Straße, Konradsreuth)
                         <span style="font-size: 0.9em; color: #7f8c8d;">🚨🚗</span>
@@ -172,14 +189,27 @@
                         <span style="font-size: 0.9em; color: #7f8c8d;">🚨🚗</span>
                     </li>
                     <li>
-                        <strong>12.01.2025:</strong> Baumbrand (Am Kirchberg)
-                        <span style="font-size: 0.9em; color: #7f8c8d;">🚨🔥</span>
-                    </li>
-                    <li>
                         <strong>14.01.2025:</strong> Verkehrsunfall (Rothenmühle)
                         <span style="font-size: 0.9em; color: #7f8c8d;">🚨🚗</span>
                     </li>
+                    <li>
+                        <strong>12.01.2025:</strong> Baumbrand (Am Kirchberg)
+                        <span style="font-size: 0.9em; color: #7f8c8d;">🚨🔥</span>
+                    </li>
                 </ul>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>🔥 Wir suchen Verstärkung!</h2>
+                    <p>Ob aktive Einsatzkraft, Jugendfeuerwehr oder Förderverein – bei uns ist jeder willkommen. Komm vorbei und schau dir an, was deine Feuerwehr für euch leistet.</p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="cta-button">Kontakt aufnehmen</a>
+                        <a href="#youth-schedule" class="cta-button cta-button-secondary">Zur Jugendfeuerwehr</a>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -314,7 +344,12 @@
                 <h2 class="section-title">Jugendfeuerwehr Ahornberg</h2>
                 <div class="youth-schedule">
                     <h3>Termine Januar - Dezember 2026</h3>
-                    <p class="table-scroll-hint">← Nach links/rechts wischen zum Scrollen →</p>
+                    <div class="youth-schedule-head">
+                        <p class="table-scroll-hint">← Nach links/rechts wischen zum Scrollen →</p>
+                        <button class="ics-button" id="icsExportBtn" type="button">
+                            📅 Zum Kalender hinzufügen (.ics)
+                        </button>
+                    </div>
                     <table>
                         <thead>
                             <tr>
@@ -455,14 +490,14 @@
                 <h2 class="section-title">Unsere Feuerwehr in Bildern</h2>
                 <div class="gallery-grid">
                     <div class="gallery-item">
-                        <img src="pics/feuerwehrauto.jpg" alt="Feuerwehrauto" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="pics/feuerwehrauto.webp" alt="Feuerwehrauto" style="width: 100%; height: 100%; object-fit: cover;">
                         <div class="gallery-overlay">
                             <h3>Löschfahrzeug</h3>
                             <p>Unser modernes Löschgruppenfahrzeug bei einem Übungseinsatz</p>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="pics/übungsbrand.jpg" alt="Übungsbrand" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="pics/übungsbrand.webp" alt="Übungsbrand" style="width: 100%; height: 100%; object-fit: cover;">
                         <div class="gallery-overlay">
                             <h3>Übungsbrand</h3>
                             <p>Realitätsnahe Übungen für den Ernstfall</p>
@@ -476,33 +511,80 @@
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="pics/gemeinschaft.jpg" alt="Gemeinschaft" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="pics/gemeinschaft.webp" alt="Gemeinschaft" style="width: 100%; height: 100%; object-fit: cover;">
                         <div class="gallery-overlay">
                             <h3>Gemeinschaft</h3>
                             <p>Zusammenhalt und Kameradschaft in der Feuerwehr</p>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="pics/funkübung/1.png" alt="Funkübung 1" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="pics/funkübung/1.webp" alt="Funkübung 1" style="width: 100%; height: 100%; object-fit: cover;">
                         <div class="gallery-overlay">
                             <h3>Funkübung</h3>
                             <p>Training der Kommunikation im Einsatz</p>
                         </div>
                     </div>
                     <div class="gallery-item">
-                        <img src="pics/funkübung/2.png" alt="Funkübung 2" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="pics/funkübung/2.webp" alt="Funkübung 2" style="width: 100%; height: 100%; object-fit: cover;">
                         <div class="gallery-overlay">
                             <h3>Funkübung</h3>
                             <p>Professionelle Funkausbildung unserer Kameraden</p>
                         </div>
                     </div>
                     <a href="#" class="gallery-item gallery-item-link open-sommerevent-modal" aria-label="Sommer-Event 16.08.2026">
-                        <img src="pics/16august26/Screenshot_1.png" alt="Sommer-Event 16.08.2026" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="pics/16august26/Screenshot_1.webp" alt="Sommer-Event 16.08.2026" style="width: 100%; height: 100%; object-fit: cover;">
                         <div class="gallery-overlay">
                             <h3>Sommer-Event 2026</h3>
                             <p>Gemeinsamer Tag am Feuerwehrhaus – klick für alle Bilder</p>
                         </div>
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 class="section-title">Kontakt & Anfahrt</h2>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-item">
+                            <span>📍</span>
+                            <div>
+                                <strong>Feuerwehrhaus Ahornberg</strong><br>
+                                Kirchgasse 3<br>
+                                95176 Konradsreuth
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span>👨‍🚒</span>
+                            <div>
+                                <strong>Kommandant</strong><br>
+                                Sebastian Großmann
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span>📧</span>
+                            <div>
+                                <strong>E-Mail</strong><br>
+                                <a href="mailto:admin@ffw-ahornberg.de">admin@ffw-ahornberg.de</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span>🚨</span>
+                            <div>
+                                <strong>Notruf</strong><br>
+                                112 – im Notfall immer!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="map-wrapper">
+                        <iframe
+                            title="Karte: Feuerwehr Ahornberg"
+                            src="https://www.openstreetmap.org/export/embed.html?bbox=11.8960%2C50.2080%2C11.9370%2C50.2254&amp;layer=mapnik&amp;marker=50.2167%2C11.9167"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <p class="map-hint"><a href="https://www.openstreetmap.org/?mlat=50.2167&amp;mlon=11.9167#map=15/50.2167/11.9167" target="_blank" rel="noopener">In OpenStreetMap öffnen ↗</a></p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -590,7 +672,7 @@
             <div class="footer-links">
                 <a href="#impressum">Impressum</a>
             </div>
-            <p>&copy; 2026 Freiwillige Feuerwehr Ahornberg e.V. • Alle Rechte vorbehalten</p>
+            <p>&copy; <span id="year">2026</span> Freiwillige Feuerwehr Ahornberg e.V. • Alle Rechte vorbehalten</p>
         </div>
     </footer>
     <div id="5mai26Modal" class="modal">
@@ -641,6 +723,18 @@
         <span class="lightbox-close" aria-label="Schließen">&times;</span>
         <img class="lightbox-image" src="" alt="">
         <div class="lightbox-caption"></div>
+    </div>
+
+    <!-- Scroll-to-top Button -->
+    <button class="scroll-top" id="scrollTopBtn" aria-label="Nach oben scrollen">↑</button>
+
+    <!-- Leichtgewichtiger Datenschutz-Hinweis -->
+    <div class="privacy-banner" id="privacyBanner" role="dialog" aria-label="Datenschutz-Hinweis">
+        <p>🔒 Diese Website verwendet technisch notwendige Funktionen (z.&nbsp;B. eine Wetter-Anzeige über einen externen Dienst). Mit einem Klick auf „OK“ bestätigst du, dass du die <a href="#impressum">Datenschutzhinweise</a> zur Kenntnis genommen hast.</p>
+        <div class="privacy-buttons">
+            <button class="privacy-accept" id="privacyAccept">OK, verstanden</button>
+            <button class="privacy-info" onclick="location.hash='#impressum'">Mehr erfahren</button>
+        </div>
     </div>
 
     <script src="js/main.js"></script>
