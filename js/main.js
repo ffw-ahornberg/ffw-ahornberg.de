@@ -200,12 +200,68 @@ document.querySelectorAll('.modal').forEach(modal => {
 });
 
 // Schließen mit Escape-Taste
+function closeOpenModals() {
+    document.querySelectorAll('.modal').forEach(modal => {
+        if (modal.style.display === 'flex') {
+            modal.style.display = 'none';
+        }
+    });
+}
+
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
-        document.querySelectorAll('.modal').forEach(modal => {
-            if (modal.style.display === 'flex') {
-                modal.style.display = 'none';
-            }
-        });
+        closeOpenModals();
+        closeLightbox();
+    }
+});
+
+/* ---------- Lightbox ---------- */
+const lightbox = document.getElementById('lightbox');
+const lightboxImage = lightbox.querySelector('.lightbox-image');
+const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+
+function openLightbox(img, caption) {
+    if (!img || !img.src) return;
+    lightboxImage.src = img.src;
+    lightboxImage.alt = img.alt || '';
+    lightboxCaption.textContent = caption || '';
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightboxImage.src = '';
+    document.body.style.overflow = '';
+}
+
+// Klick auf ein Galerie-/Modal-Bild öffnet die Lightbox
+document.addEventListener('click', (event) => {
+    const img = event.target.closest('img');
+    if (!img) return;
+    const galleryImage = img.closest('.gallery-item') || img.closest('.modal-gallery-grid');
+    if (!galleryImage) return;
+
+    const wrapper = img.closest('a');
+    if (wrapper && wrapper.classList.contains('gallery-item-link')) {
+        // Sommer-Event-Galerie-Element: Modal öffnen statt Lightbox
+        return;
+    }
+
+    const itemCaption = img.closest('.gallery-item')?.querySelector('.gallery-overlay h3');
+    const caption = itemCaption ? itemCaption.textContent.trim() : img.alt || '';
+    openLightbox(img, caption);
+});
+
+// Schließen über den Close-Button
+lightbox.querySelector('.lightbox-close').addEventListener('click', (event) => {
+    event.stopPropagation();
+    closeLightbox();
+});
+
+// Schließen durch Klick auf den Hintergrund (nicht auf das Bild)
+lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox || event.target === lightboxImage) {
+        closeLightbox();
     }
 });
