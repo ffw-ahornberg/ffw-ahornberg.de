@@ -166,6 +166,10 @@ const modalConfigs = {
     '.open-5mai26-modal': {
         modal: '5mai26Modal', gallery: '5mai26Gallery',
         base: 'pics/5mai26/', count: 13, prefix: 'Scheunenbrand', ext: 'jpeg'
+    },
+    '.open-sommerevent-modal': {
+        modal: 'sommereventModal', gallery: 'sommereventGallery',
+        base: 'pics/16august26/Screenshot_', count: 3, prefix: 'Sommer-Event', ext: 'png'
     }
 };
 
