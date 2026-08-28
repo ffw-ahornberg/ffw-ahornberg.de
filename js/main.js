@@ -1,0 +1,207 @@
+    /* =========================================================
+   Freiwillige Feuerwehr Ahornberg – Haupt-JavaScript
+   ========================================================= */
+
+/* ---------- Mobile Navigation ---------- */
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileNav = document.getElementById('mobileNav');
+
+hamburgerBtn.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    hamburgerBtn.classList.toggle('active', isOpen);
+    hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
+    mobileNav.setAttribute('aria-hidden', String(!isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+
+document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        hamburgerBtn.classList.remove('active');
+        mobileNav.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    });
+});
+
+/* ---------- Sanftes Scrollen für Anker-Links ---------- */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#' || targetId === '') return;
+        e.preventDefault();
+        const target = document.querySelector(targetId);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
+
+/* ---------- Header-Effekt beim Scrollen ---------- */
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+
+/* ---------- Scroll-Reveal für Karten & Einsatzliste ---------- */
+const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.card, .deployment-list li').forEach(element => {
+    element.classList.add('reveal');
+    observer.observe(element);
+});
+
+/* ---------- Notruf-Nummer: Blinken bei Klick ---------- */
+const emergencyNumber = document.querySelector('.emergency-number');
+if (emergencyNumber) {
+    emergencyNumber.addEventListener('click', () => {
+        emergencyNumber.style.animation = 'none';
+        setTimeout(() => {
+            emergencyNumber.style.animation = 'emergencyBlink 1s ease-in-out 3';
+        }, 10);
+    });
+}
+
+/* ---------- CTA-Button ---------- */
+const ctaButton = document.querySelector('.cta-button');
+if (ctaButton) {
+    ctaButton.addEventListener('mouseenter', function () {
+        this.dataset.text = this.textContent;
+        this.textContent = '🚒 ' + this.textContent;
+    });
+    ctaButton.addEventListener('mouseleave', function () {
+        if (this.dataset.text) this.textContent = this.dataset.text;
+    });
+}
+
+/* ---------- Wetter-Widget ---------- */
+async function loadWeather() {
+    const weatherInfo = document.getElementById('weather-info');
+    if (!weatherInfo) return;
+    try {
+        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=50.2167&longitude=11.9167&current_weather=true&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m,pressure_msl&timezone=Europe/Berlin&forecast_days=1');
+        const data = await response.json();
+        const current = data.current_weather;
+        const hourly = data.hourly;
+        const currentHour = new Date().getHours();
+        const humidity = hourly.relative_humidity_2m[currentHour] || 'N/A';
+        const pressure = hourly.pressure_msl[currentHour] || 'N/A';
+        const weatherDescriptions = {
+            0: 'Klar', 1: 'Überwiegend klar', 2: 'Teilweise bewölkt', 3: 'Bewölkt',
+            45: 'Neblig', 48: 'Neblig mit Reif', 51: 'Leichter Nieselregen',
+            53: 'Mäßiger Nieselregen', 55: 'Starker Nieselregen', 61: 'Leichter Regen',
+            63: 'Mäßiger Regen', 65: 'Starker Regen', 71: 'Leichter Schneefall',
+            73: 'Mäßiger Schneefall', 75: 'Starker Schneefall', 77: 'Schneekörner',
+            80: 'Leichte Regenschauer', 81: 'Mäßige Regenschauer', 82: 'Starke Regenschauer',
+            85: 'Leichte Schneeschauer', 86: 'Starke Schneeschauer', 95: 'Gewitter',
+            96: 'Gewitter mit Hagel', 99: 'Starkes Gewitter mit Hagel'
+        };
+        const description = weatherDescriptions[current.weathercode] || 'Unbekannt';
+        weatherInfo.innerHTML = `
+            <div class="weather-temp">${Math.round(current.temperature)}°C</div>
+            <div class="weather-desc">${description}</div>
+            <div class="weather-data">
+                <div class="weather-item"><div>💧 Luftfeuchtigkeit</div><div class="weather-value">${humidity}%</div></div>
+                <div class="weather-item"><div>💨 Wind</div><div class="weather-value">${Math.round(current.windspeed)} km/h</div></div>
+                <div class="weather-item"><div>📊 Luftdruck</div><div class="weather-value">${pressure ? Math.round(pressure) : 'N/A'} hPa</div></div>
+            </div>
+            <div class="weather-timestamp">Live-Daten für Ahornberg • ${new Date().toLocaleString('de-DE')}</div>
+        `;
+    } catch (error) {
+        weatherInfo.innerHTML = '<p class="weather-error">🌡️ Wetterdaten momentan nicht verfügbar<br><small>Verbindung zur Wetter-API fehlgeschlagen</small></p>';
+    }
+}
+loadWeather();
+setInterval(loadWeather, 600000);
+
+/* ---------- Galerie-Modals ---------- */
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.style.display = 'flex';
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.style.display = 'none';
+}
+
+function fillGallery(galleryId, basePath, count, prefix, ext) {
+    const gallery = document.getElementById(galleryId);
+    if (!gallery) return;
+    gallery.innerHTML = '';
+    for (let i = 1; i <= count; i++) {
+        const img = document.createElement('img');
+        img.src = `${basePath}${i}.${ext}`;
+        img.alt = `${prefix} Bild ${i}`;
+        img.loading = 'lazy';
+        gallery.appendChild(img);
+    }
+}
+
+const modalConfigs = {
+    '.open-drehleiter-modal': {
+        modal: 'imageModal', gallery: 'drehleiterGallery',
+        base: 'pics/drehleiteruebung/drehleiteruebung', count: 8, prefix: 'Drehleiterübung', ext: 'jpg'
+    },
+    '.open-funkuebung-modal': {
+        modal: 'funkuebungModal', gallery: 'funkuebungGallery',
+        base: 'pics/funkübung/', count: 2, prefix: 'Funkübung', ext: 'png'
+    },
+    '.open-fahrzeugkunde-modal': {
+        modal: 'fahrzeugkundeModal', gallery: 'fahrzeugkundeGallery',
+        base: 'pics/Fahrzeugkunde/', count: 3, prefix: 'Fahrzeugkunde', ext: 'jpg'
+    },
+    '.open-5mai26-modal': {
+        modal: '5mai26Modal', gallery: '5mai26Gallery',
+        base: 'pics/5mai26/', count: 13, prefix: 'Scheunenbrand', ext: 'jpeg'
+    }
+};
+
+Object.entries(modalConfigs).forEach(([selector, config]) => {
+    document.querySelectorAll(selector).forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            fillGallery(config.gallery, config.base, config.count, config.prefix, config.ext);
+            openModal(config.modal);
+        });
+    });
+});
+
+// Schließen über die Close-Buttons (data-modal-Attribut)
+document.querySelectorAll('.close-button').forEach(button => {
+    button.addEventListener('click', () => {
+        closeModal(button.dataset.modal);
+    });
+});
+
+// Schließen durch Klick auf den Hintergrund
+document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
+
+// Schließen mit Escape-Taste
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        document.querySelectorAll('.modal').forEach(modal => {
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            }
+        });
+    }
+});
