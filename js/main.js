@@ -2,6 +2,10 @@
    Freiwillige Feuerwehr Ahornberg – Haupt-JavaScript
    ========================================================= */
 
+/* ---------- Footer-Jahr automatisch aktuell halten ---------- */
+const yearEl = document.getElementById('year');
+if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
 /* ---------- Mobile Navigation ---------- */
 const hamburgerBtn = document.getElementById('hamburgerBtn');
 const mobileNav = document.getElementById('mobileNav');
@@ -153,15 +157,15 @@ function fillGallery(galleryId, basePath, count, prefix, ext) {
 const modalConfigs = {
     '.open-drehleiter-modal': {
         modal: 'imageModal', gallery: 'drehleiterGallery',
-        base: 'pics/drehleiteruebung/drehleiteruebung', count: 8, prefix: 'Drehleiterübung', ext: 'jpg'
+        base: 'pics/drehleiteruebung/drehleiteruebung', count: 8, prefix: 'Drehleiterübung', ext: 'webp'
     },
     '.open-funkuebung-modal': {
         modal: 'funkuebungModal', gallery: 'funkuebungGallery',
-        base: 'pics/funkübung/', count: 2, prefix: 'Funkübung', ext: 'png'
+        base: 'pics/funkübung/', count: 2, prefix: 'Funkübung', ext: 'webp'
     },
     '.open-fahrzeugkunde-modal': {
         modal: 'fahrzeugkundeModal', gallery: 'fahrzeugkundeGallery',
-        base: 'pics/Fahrzeugkunde/', count: 3, prefix: 'Fahrzeugkunde', ext: 'jpg'
+        base: 'pics/Fahrzeugkunde/', count: 3, prefix: 'Fahrzeugkunde', ext: 'webp'
     },
     '.open-5mai26-modal': {
         modal: '5mai26Modal', gallery: '5mai26Gallery',
@@ -169,7 +173,7 @@ const modalConfigs = {
     },
     '.open-sommerevent-modal': {
         modal: 'sommereventModal', gallery: 'sommereventGallery',
-        base: 'pics/16august26/Screenshot_', count: 3, prefix: 'Sommer-Event', ext: 'png'
+        base: 'pics/16august26/Screenshot_', count: 3, prefix: 'Sommer-Event', ext: 'webp'
     }
 };
 
@@ -265,3 +269,184 @@ lightbox.addEventListener('click', (event) => {
         closeLightbox();
     }
 });
+
+/* ---------- Scroll-to-top Button ---------- */
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+function updateScrollTopButton() {
+    if (!scrollTopBtn) return;
+    if (window.scrollY > 400) {
+        scrollTopBtn.classList.add('show');
+    } else {
+        scrollTopBtn.classList.remove('show');
+    }
+}
+
+window.addEventListener('scroll', updateScrollTopButton, { passive: true });
+updateScrollTopButton();
+
+if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+/* ---------- Leichtgewichtiger Datenschutz-Hinweis ---------- */
+const privacyBanner = document.getElementById('privacyBanner');
+const privacyAccept = document.getElementById('privacyAccept');
+
+function showPrivacyBanner() {
+    if (!privacyBanner) return;
+    try {
+        if (localStorage.getItem('ffw-privacy-consent') === 'accepted') return;
+    } catch (error) {
+        return; // localStorage nicht verfügbar -> Banner nicht anzeigen
+    }
+    setTimeout(() => privacyBanner.classList.add('show'), 1500);
+}
+
+if (privacyAccept) {
+    privacyAccept.addEventListener('click', () => {
+        try {
+            localStorage.setItem('ffw-privacy-consent', 'accepted');
+        } catch (error) {
+            /* weiter im Speichermodus */
+        }
+        privacyBanner.classList.remove('show');
+    });
+}
+
+showPrivacyBanner();
+
+/* ---------- Jugend-Termine als ICS-Kalender exportieren ---------- */
+const icsExportBtn = document.getElementById('icsExportBtn');
+
+function escapeICS(text) {
+    return String(text)
+        .replace(/\\/g, '\\\\')
+        .replace(/;/g, '\\;')
+        .replace(/,/g, '\\,')
+        .replace(/\r?\n/g, '\\n');
+}
+
+function buildICS() {
+    const schedule = document.querySelector('.youth-schedule');
+    if (!schedule) return null;
+
+    const yearMatch = schedule.querySelector('h3')?.textContent.match(/(\d{4})/);
+    const year = yearMatch ? yearMatch[1] : new Date().getFullYear();
+
+    const events = [];
+    schedule.querySelectorAll('tbody tr').forEach((row) => {
+        const cells = row.querySelectorAll('td');
+        if (cells.length < 3) return;
+
+        const dateCell = cells[0].textContent.trim();
+        const timeCell = cells[1].textContent.trim();
+        const title = cells[2].textContent.trim().replace(/\s+/g, ' ');
+
+        // Datum "Sa, 10.01." oder "10.01.2026"
+        const dateMatch = dateCell.match(/(\d{1,2})\.(\d{1,2})\./);
+        if (!dateMatch) return;
+        const day = dateMatch[1];
+        const month = dateMatch[2];
+        const dateStr = day.padStart(2, '0') + month.padStart(2, '0');
+
+        // Uhrzeit "19:30 Uhr" oder "Info folgt"
+        const timeMatch = timeCell.match(/(\d{1,2}):(\d{2})/);
+        let startDate = year + dateStr;
+        let endDate = startDate;
+        if (timeMatch) {
+            startDate += 'T' + timeMatch[1].padStart(2, '0') + timeMatch[2] + '00';
+            // Ende: 2 Stunden später
+            const d = new Date(year, parseInt(month, 10) - 1, parseInt(day, 10), parseInt(timeMatch[1], 10), parseInt(timeMatch[2], 10));
+            d.setHours(d.getHours() + 2);
+            const endPad = (n) => String(n).padStart(2, '0');
+            endDate = '' + year + dateStr + 'T' + endPad(d.getHours()) + endPad(d.getMinutes()) + '00';
+        } else {
+            startDate += 'T000000';
+            endDate += 'T235959';
+        }
+
+        events.push({
+            start: startDate,
+            end: endDate,
+            title: title,
+            location: 'Feuerwehrhaus Ahornberg, Kirchgasse 3, 95176 Konradsreuth',
+        });
+    });
+
+    if (events.length === 0) return null;
+
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2, '0');
+    const stamp = '' + now.getUTCFullYear() + pad(now.getUTCMonth() + 1) + pad(now.getUTCDate()) + 'T' +
+        pad(now.getUTCHours()) + pad(now.getUTCMinutes()) + pad(now.getUTCSeconds()) + 'Z';
+
+    const lines = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Freiwillige Feuerwehr Ahornberg//Jugendfeuerwehr//DE',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+        'X-WR-CALNAME:Jugendfeuerwehr Ahornberg',
+        'X-WR-TIMEZONE:Europe/Berlin',
+    ];
+
+    events.forEach((ev, index) => {
+        lines.push('BEGIN:VEVENT');
+        lines.push('UID:ffw-ahornberg-jugend-' + index + '-' + ev.start + '@ffw-ahornberg.de');
+        lines.push('DTSTAMP:' + stamp);
+        lines.push('DTSTART:' + ev.start);
+        lines.push('DTEND:' + ev.end);
+        lines.push('SUMMARY:' + escapeICS(ev.title));
+        lines.push('LOCATION:' + escapeICS(ev.location));
+        lines.push('END:VEVENT');
+    });
+
+    lines.push('END:VCALENDAR');
+    return lines.join('\r\n');
+}
+
+if (icsExportBtn) {
+    icsExportBtn.addEventListener('click', () => {
+        const icsText = buildICS();
+        if (!icsText) return;
+        const blob = new Blob([icsText], { type: 'text/calendar;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'jugendfeuerwehr-ahornberg-termine.ics';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    });
+}
+
+/* ---------- Einsatz-Statistik ---------- */
+function initDeploymentStats() {
+    const statsEl = document.getElementById('deploymentStats');
+    const list = document.querySelector('.deployment-list');
+    if (!statsEl || !list) return;
+
+    const items = list.querySelectorAll('li');
+    if (items.length === 0) return;
+
+    const years = new Set();
+    items.forEach((li) => {
+        const strongText = li.querySelector('strong')?.textContent || '';
+        const match = strongText.match(/(\d{4})/);
+        if (match) years.add(match[1]);
+    });
+
+    const yearList = Array.from(years).sort();
+    const yearRange = yearList.length > 1
+        ? yearList[0] + '–' + yearList[yearList.length - 1]
+        : (yearList[0] || String(new Date().getFullYear()));
+
+    statsEl.innerHTML = '<span class="stat-item">🚒 <strong>' + items.length + '</strong> dokumentierte Einsätze</span>' +
+        '<span class="stat-item">📅 ' + yearRange + '</span>';
+}
+
+initDeploymentStats();
