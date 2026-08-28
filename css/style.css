@@ -1396,54 +1396,6 @@ RESPONSIVE / MOBILE STYLES
 }
 
 /* =========================================================
-   Mitglieder-CTA-Banner
-   ========================================================= */
-.cta-section {
-    background: linear-gradient(135deg, var(--red) 0%, var(--orange) 100%);
-    padding: 5rem 0;
-    text-align: center;
-}
-
-.cta-section h2 {
-    color: #fff;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    margin-bottom: 1rem;
-    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-}
-
-.cta-section p {
-    color: rgba(255, 255, 255, 0.92);
-    max-width: 720px;
-    margin: 0 auto 2rem;
-    font-size: 1.1rem;
-    line-height: 1.6;
-}
-
-.cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.cta-buttons .cta-button {
-    background: #fff;
-    color: var(--red-dark);
-}
-
-.cta-buttons .cta-button-secondary {
-    background: transparent;
-    color: #fff;
-    border: 2px solid rgba(255, 255, 255, 0.85);
-    box-shadow: none;
-}
-
-.cta-buttons .cta-button-secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: none;
-}
-
-/* =========================================================
    Kontakt & Anfahrt
    ========================================================= */
 .contact-grid {
@@ -1517,44 +1469,6 @@ RESPONSIVE / MOBILE STYLES
 
 .map-hint a:hover {
     text-decoration: underline;
-}
-
-/* =========================================================
-   ICS-Kalender-Export (Jugendfeuerwehr)
-   ========================================================= */
-.youth-schedule-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 1rem;
-}
-
-.youth-schedule-head .table-scroll-hint {
-    margin: 0;
-}
-
-.ics-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.25rem;
-    background: var(--red);
-    color: #fff;
-    border: none;
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    cursor: pointer;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-}
-
-.ics-button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    background: var(--orange);
 }
 
 /* =========================================================
