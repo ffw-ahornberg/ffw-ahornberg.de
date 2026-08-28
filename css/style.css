@@ -455,6 +455,12 @@ main {
     box-shadow: var(--shadow-md);
 }
 
+a.gallery-item-link {
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .gallery-placeholder {
     width: 100%;
     height: 100%;
@@ -1225,6 +1231,19 @@ RESPONSIVE / MOBILE STYLES
 /* =========================================================
    Eigene Ergänzungen / Feinschliff
    ========================================================= */
+
+/* Sektionen nicht vom fixierten Header verdeckt beim Ankern */
+:target,
+[id] {
+    scroll-margin-top: 70px;
+}
+
+@media (max-width: 600px) {
+    :target,
+    [id] {
+        scroll-margin-top: 60px;
+    }
+}
 
 /* Scroll-Reveal (wird von main.js gesteuert) */
 .reveal {
