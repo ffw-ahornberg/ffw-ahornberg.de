@@ -1396,82 +1396,6 @@ RESPONSIVE / MOBILE STYLES
 }
 
 /* =========================================================
-   Kontakt & Anfahrt
-   ========================================================= */
-.contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.4fr;
-    gap: 2rem;
-    align-items: stretch;
-    margin-top: 3rem;
-}
-
-.contact-card {
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(230, 57, 70, 0.12);
-    padding: 2rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    justify-content: center;
-}
-
-.contact-card .contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-}
-
-.contact-card .contact-item span {
-    font-size: 1.6rem;
-    line-height: 1.2;
-}
-
-.contact-card .contact-item a {
-    color: var(--red);
-    text-decoration: underline;
-}
-
-.map-wrapper {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(230, 57, 70, 0.12);
-    min-height: 380px;
-    display: flex;
-    flex-direction: column;
-}
-
-.map-wrapper iframe {
-    flex: 1;
-    width: 100%;
-    border: 0;
-    min-height: 340px;
-}
-
-.map-hint {
-    margin: 0;
-    padding: 0.6rem 1rem;
-    background: #fff;
-    font-size: 0.85rem;
-    text-align: center;
-    border-top: 1px solid rgba(29, 42, 58, 0.08);
-}
-
-.map-hint a {
-    color: var(--red);
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.map-hint a:hover {
-    text-decoration: underline;
-}
-
-/* =========================================================
    Scroll-to-top
    ========================================================= */
 .scroll-top {
@@ -1572,17 +1496,8 @@ RESPONSIVE / MOBILE STYLES
 }
 
 @media (max-width: 768px) {
-    .contact-grid {
-        grid-template-columns: 1fr;
-    }
 
-    .map-wrapper {
-        min-height: 320px;
-    }
 
-    .map-wrapper iframe {
-        min-height: 280px;
-    }
 
     .scroll-top {
         right: 1rem;
